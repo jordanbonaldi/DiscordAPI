@@ -1,0 +1,24 @@
+{
+  "name": "@neferett/discordapi",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jordanbonaldi/DiscordAPI.git"
+  },
+  "keywords": [],
+  "author": "Jordan Bonaldi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jordanbonaldi/DiscordAPI/issues"
+  },
+  "homepage": "https://github.com/jordanbonaldi/DiscordAPI#readme",
+  "dependencies": {
+    "discord.js": "^11.5.1"
+  },
+  "devDependencies": {},
+  "description": ""
+}
