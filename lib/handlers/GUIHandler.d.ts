@@ -13,7 +13,7 @@ declare const _default: {
      *
      * @param channelId
      */
-    getActiveGUI(channelId: string): GUI;
+    getActiveGUI(channelId: string): GUI | null;
     /**
      *
      * @param channelId

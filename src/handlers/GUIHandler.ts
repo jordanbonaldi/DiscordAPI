@@ -30,7 +30,9 @@ export default new class GUIHandler {
      *
      * @param channelId
      */
-    getActiveGUI(channelId: string): GUI {
+    getActiveGUI(channelId: string): GUI | null {
+        if (this.gui[channelId] == null)
+            return null;
         return this.gui[channelId].filter((gui: GUI) => gui.active)[0];
     }
 
