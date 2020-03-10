@@ -1,5 +1,6 @@
 import Command from "./Command";
 import {User} from "discord.js";
+import engines from "../config/definedEngines";
 
 export default new class HelpCommand extends Command {
 
@@ -14,7 +15,7 @@ export default new class HelpCommand extends Command {
      */
     onCommand(executor: User, args: string[] = []): Promise<string> {
         let message = "Here are the available commands:\n";
-        require('../config/definedEngines').commands.forEach((e: any) => {
+        engines.commands.forEach((e: any) => {
             message += `Commands: ${e.name}  |  RoleId: [${e.roleId}]  |  Usage: ${e.help}\n`;
         });
 
