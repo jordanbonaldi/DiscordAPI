@@ -11,7 +11,7 @@ import {
 } from 'discord.js';
 import EventHandler from "./handlers/EventHandler";
 
-export default new class DiscordAPI {
+class DiscordAPI {
 
     private loginToken!: string;
     private serverId!: string;
@@ -199,4 +199,9 @@ export default new class DiscordAPI {
             message.react(Array.isArray(emoji) ? emoji[0] : emoji)
         );
     }
+}
+
+export default new DiscordAPI();
+export {
+    DiscordAPI as DiscordClass,
 }

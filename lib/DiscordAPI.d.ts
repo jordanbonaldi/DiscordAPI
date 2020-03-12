@@ -1,14 +1,15 @@
 import { Client, Guild, GuildChannel, GuildMember, Message, MessageReaction, RichEmbed, TextChannel } from 'discord.js';
-declare const _default: {
-    loginToken: string;
-    serverId: string;
+declare class DiscordAPI {
+    private loginToken;
+    private serverId;
     client: Client;
+    constructor();
     /**
      *
      * @param serverId
      * @param loginToken
      */
-    setCredentials(serverId: string, loginToken: string): any;
+    setCredentials(serverId: string, loginToken: string): DiscordAPI;
     login(): Promise<Client>;
     getGuild(): Guild | undefined;
     /**
@@ -38,7 +39,7 @@ declare const _default: {
      * @param channelId
      * @param message
      */
-    sendMessageOnChannel(channelId: string, message: string | Message | RichEmbed): Promise<Message | Message[]>;
+    sendMessageOnChannel(channelId: string, message: Message | RichEmbed | string): Promise<Message | Message[]>;
     /**
      *
      * @param channelId
@@ -65,14 +66,14 @@ declare const _default: {
      * @param messageId
      * @param callback
      */
-    actionOnFetchedMessage(channelId: string, messageId: string, callback: (message: Message) => Promise<void | Message | MessageReaction>): Promise<any>;
+    actionOnFetchedMessage(channelId: string, messageId: string, callback: (message: Message) => Promise<Message | MessageReaction | void>): Promise<Message | any>;
     /**
      *
      * @param channelId
      * @param messageId
      * @param newMessage
      */
-    modifyMessage(channelId: string, messageId: string, newMessage: string | Message | RichEmbed): Promise<Message> | null;
+    modifyMessage(channelId: string, messageId: string, newMessage: string | RichEmbed | Message): Promise<Message> | null;
     /**
      *
      * @param channelId
@@ -89,5 +90,7 @@ declare const _default: {
      * @param emoji
      */
     addReactions(channelId: string, messageId: string, emoji: string): Promise<any> | null;
-};
+}
+declare const _default: DiscordAPI;
 export default _default;
+export { DiscordAPI as DiscordClass, };
