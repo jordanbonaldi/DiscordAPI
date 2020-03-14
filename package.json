@@ -4,7 +4,8 @@
   "scripts": {
     "watch": "nodemon",
     "build": "rimraf ./lib && tsc",
-    "start": "npm run build && node lib/index.js"
+    "start": "npm run build && node lib/index.js",
+    "prepublish": "npm run build && npm-auto-version"
   },
   "repository": {
     "type": "git",
