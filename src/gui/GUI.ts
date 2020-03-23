@@ -19,7 +19,7 @@ export default abstract class GUI {
 
 
     message !: RichEmbed;
-    buttons : Button[];
+    buttons: Button[];
 
     private readonly oneMessage: boolean;
 
@@ -91,12 +91,15 @@ export default abstract class GUI {
     }
 
     addButton(...buttons: Button[]): void {
+        this.buttons = [];
         buttons.forEach(b => this.buttons.push(b));
     }
 
     protected abstract defineButtons(): void;
 
     protected abstract defineField(): void;
+
+    protected abstract refreshData(): Promise<any>;
 
     rebuildMessage(): void {
         this.buildCore();
@@ -114,7 +117,7 @@ export default abstract class GUI {
         if (guild == null)
             return Promise.reject("Unknown guild");
 
-        return guild.fetchMessages({limit: 1})
+        return this.refreshData().then(() => this.rebuildMessage()).then(() => guild?.fetchMessages({limit: 1})
             .then((messages: any) => {
                 if (messages.size === 0 && post)
                     return this.postMessage();
@@ -127,6 +130,7 @@ export default abstract class GUI {
                         )
                     );
             })
+        );
     }
 
     postMessage(): Promise<void> {
@@ -144,5 +148,5 @@ export default abstract class GUI {
     onMessage(user: User, message: Message): Promise<Message> {
         return message.delete();
     }
-
 }
+

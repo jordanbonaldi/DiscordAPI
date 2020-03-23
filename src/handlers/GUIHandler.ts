@@ -8,6 +8,12 @@ export default new class GUIHandler {
         this.gui = {};
     }
 
+    removeGui(gui: GUI) {
+        gui.active = false;
+
+        this.gui[gui.channelId] = this.gui[gui.channelId].filter(e => e.title != gui.title);
+    }
+
     /**
      *
      * @param gui
@@ -73,6 +79,7 @@ export default new class GUIHandler {
      * @param gui
      */
     openGUI(gui: GUI): Promise<any> {
+        gui.active = true;
         return gui.construct();
     }
 

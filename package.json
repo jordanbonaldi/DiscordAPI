@@ -1,6 +1,6 @@
 {
   "name": "@jordanbonaldi/discordapi",
-  "version": "1.1.8",
+  "version": "1.1.24",
   "scripts": {
     "watch": "nodemon",
     "build": "rimraf ./lib && tsc",
@@ -23,7 +23,8 @@
   "homepage": "https://github.com/jordanbonaldi/DiscordAPI#readme",
   "dependencies": {
     "@types/node": "^13.9.0",
-    "discord.js": "^11.5.1"
+    "discord.js": "^11.5.1",
+    "npm-auto-version": "^1.0.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.2",
