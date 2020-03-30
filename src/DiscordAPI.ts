@@ -1,6 +1,6 @@
 import {
     Channel,
-    Client,
+    Client, Collection,
     Guild,
     GuildChannel,
     GuildMember,
@@ -10,6 +10,7 @@ import {
     TextChannel
 } from 'discord.js';
 import EventHandler from "./handlers/EventHandler";
+import {Button} from "./gui/Buttons";
 
 class DiscordAPI {
 
@@ -137,6 +138,23 @@ class DiscordAPI {
         return this.actionOnFetchedMessage(channelId, messageId, (message: Message) => message.delete());
     }
 
+    /**
+     *
+     * @param channelId
+     */
+    flushChannel(channelId: string): Promise<Message[] | undefined> {
+        let guild: TextChannel | undefined = this.getChannelFromId(channelId);
+
+        if (guild == null)
+            return Promise.reject("Unknown guild");
+
+        return guild.fetchMessages({limit: 100})
+            .then((messages: Collection<string, Message>) => {
+                if (messages.size == 0)
+                    return;
+                return Promise.all(messages.map((e: Message) => e.delete()));
+        });
+    }
 
     /**
      *

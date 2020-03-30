@@ -1,6 +1,6 @@
 import {RichEmbed} from "discord.js";
 
-export class Field {
+export class FieldClass {
 
     title: string;
     description: string;
@@ -47,6 +47,6 @@ export class Field {
  * @param inline
  * @param blank
  */
-export default function(title: string, description: string, inline: boolean = false, blank: boolean = false): Field {
-    return new Field(title, description, inline, blank);
+export default function(title: string, description: string, inline: boolean = false, blank: boolean = false): FieldClass {
+    return new FieldClass(title, description, inline, blank);
 }

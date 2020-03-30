@@ -1,7 +1,8 @@
 import {Message, RichEmbed, TextChannel, User} from "discord.js";
 import DiscordAPI from "../DiscordAPI";
 import {Button} from "./Buttons";
-import {Field} from "./Field";
+import {FieldClass} from "./Field";
+import {GUIHandler} from "../index";
 
 export default abstract class GUI {
 
@@ -86,7 +87,7 @@ export default abstract class GUI {
      *
      * @param fields
      */
-    addFields(...fields: Field[]): void {
+    addFields(...fields: FieldClass[]): void {
         fields.forEach(field => this.message = field.getConstructedField(this.message));
     }
 
@@ -110,14 +111,15 @@ export default abstract class GUI {
     /**
      *
      * @param post
+     * @param refresh
      */
-    construct(post: boolean = true): Promise<any> {
+    construct(post: boolean = true, refresh: boolean = true): Promise<any> {
         let guild: TextChannel | undefined = DiscordAPI.getChannelFromId(this.channelId);
 
         if (guild == null)
             return Promise.reject("Unknown guild");
 
-        return this.refreshData().then(() => this.rebuildMessage()).then(() => guild?.fetchMessages({limit: 1})
+        return (refresh ? this.refreshData() : Promise.resolve()).then(() => this.rebuildMessage()).then(() => guild?.fetchMessages({limit: 1})
             .then((messages: any) => {
                 if (messages.size === 0 && post)
                     return this.postMessage();
@@ -133,11 +135,8 @@ export default abstract class GUI {
         );
     }
 
-    postMessage(): Promise<void> {
-        return DiscordAPI.sendMessageOnChannel(this.channelId, this.message)
-            .then((message: Message | Message[]) =>
-                console.log(message)
-            ).catch(() => console.log("Error while posting message"));
+    postMessage(): Promise<Message | Message[] | void> {
+        return DiscordAPI.sendMessageOnChannel(this.channelId, this.message).catch(() => console.log("Error while posting message"));
     }
 
     /**
@@ -147,6 +146,17 @@ export default abstract class GUI {
      */
     onMessage(user: User, message: Message): Promise<Message> {
         return message.delete();
+    }
+
+    /**
+     *
+     * @param gui
+     */
+    protected nextGUI(gui: GUI): Promise<any> {
+        gui.active = true;
+        GUIHandler.connectGUI(gui);
+        this.active = false;
+        return GUIHandler.openGUI(gui);
     }
 }
 
