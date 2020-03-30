@@ -1,5 +1,6 @@
 import DiscordAPI, { DiscordClass } from "./DiscordAPI";
 import GUI from "./gui/GUI";
+import Button from "./gui/Buttons";
 import GUIHandler from "./handlers/GUIHandler";
 import Field, {FieldClass} from "./gui/Field";
 import Event from "./events/Event";
@@ -10,6 +11,7 @@ export {
     DiscordClass as DiscordClass,
     GUI as GUI,
     GUIHandler as GUIHandler,
+    Button as Button,
     Field as Field,
     FieldClass as FieldClass,
     Event as Event,
