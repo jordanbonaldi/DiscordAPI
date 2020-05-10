@@ -12,7 +12,8 @@ DiscordAPI System allowing GUI Creation
 [![Using Async Call](https://img.youtube.com/vi/fnshn4kfrh8/0.jpg)](https://youtu.be/fnshn4kfrh8)
 
 **Simple message refreshed every seconds**
-![Simple GUI Message with Async Reload](https://i.imgur.com/wfSsbGF.png =440x600)
+
+<img src="https://i.imgur.com/wfSsbGF.png" height="600" width="430">
 
 ## Installation
 
