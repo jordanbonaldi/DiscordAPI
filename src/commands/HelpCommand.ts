@@ -13,9 +13,10 @@ export default new class HelpCommand extends Command {
      * @param executor
      * @param args
      */
-    onCommand(executor: User, args: string[] = []): Promise<string> {
-        let message = "Here are the available commands:\n";
-        engines.commands.forEach((e: any) => {
+    public onCommand(executor: User, args: string[] = []): Promise<string> {
+        let message: string = "Here are the available commands:\n";
+
+        engines.commands.forEach((e: Command) => {
             message += `Commands: ${e.name}  |  RoleId: [${e.roleId}]  |  Usage: ${e.help}\n`;
         });
 

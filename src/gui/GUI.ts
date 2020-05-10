@@ -1,4 +1,4 @@
-import {Message, RichEmbed, TextChannel, User} from "discord.js";
+import {Message, MessageReaction, RichEmbed, TextChannel, User} from "discord.js";
 import DiscordAPI from "../DiscordAPI";
 import {Button} from "./Buttons";
 import {FieldClass} from "./Field";
@@ -6,23 +6,11 @@ import {GUIHandler} from "../index";
 
 export default abstract class GUI {
 
-    color: string;
-    title: string;
-    author: string;
-    description: string;
-    thumbnail: string;
-    channelId: string;
-    footer: string;
-
     // Accessed fields
-    reload: boolean;
-    active: boolean;
-
-
+    active !: boolean;
     message !: RichEmbed;
-    buttons: Button[];
 
-    private readonly oneMessage: boolean;
+    public dmID: Message | undefined = undefined;
 
     /**
      *
@@ -35,32 +23,24 @@ export default abstract class GUI {
      * @param channelId
      * @param oneMessage
      * @param reload
+     * @param personalMessage
+     * @param image
+     * @param buttons
      */
     protected constructor(
-        color: string,
-        title: string,
-        author: string,
-        description: string,
-        footer: string,
-        thumbnail: string,
-        channelId: string,
-        oneMessage: boolean,
-        reload: boolean
-    ) {
-        this.color = color;
-        this.title = title;
-        this.author = author;
-        this.description = description;
-        this.footer = footer;
-        this.thumbnail = thumbnail;
-        this.channelId = channelId;
-        this.oneMessage = oneMessage;
-        this.reload = reload;
-        this.active = false;
-        this.buttons = [];
-
-        this.rebuildMessage();
-    }
+        private readonly color: string,
+        public readonly title: string,
+        private readonly author: string,
+        private readonly description: string,
+        private readonly footer: string,
+        private readonly thumbnail: string,
+        public readonly channelId: string,
+        private readonly oneMessage: boolean,
+        public reload: boolean,
+        public readonly personalMessage: boolean = false,
+        private readonly image : string | null = null,
+        public buttons: Button[] = []
+    ) { this.rebuildMessage() }
 
     buildCore(): void {
         this.message = DiscordAPI.createEmbed()
@@ -71,6 +51,9 @@ export default abstract class GUI {
             .setFooter(this.footer, this.thumbnail)
             .setThumbnail(this.thumbnail)
             .setTimestamp();
+
+        if (this.image !== null)
+            this.message.setImage(this.image);
     }
 
     /**
@@ -78,10 +61,9 @@ export default abstract class GUI {
      * @param reaction
      * @returns {*}
      */
-    findReaction(reaction: string) {
+    findReaction(reaction: string): Button {
         return this.buttons.filter((button: Button) => button.icon === reaction)[0];
     }
-
 
     /**
      *
@@ -113,13 +95,15 @@ export default abstract class GUI {
      * @param post
      * @param refresh
      */
-    construct(post: boolean = true, refresh: boolean = true): Promise<any> {
+    construct(post: boolean = true, refresh: boolean = true): Promise<MessageReaction[]> {
         let guild: TextChannel | undefined = DiscordAPI.getChannelFromId(this.channelId);
 
         if (guild == null)
             return Promise.reject("Unknown guild");
 
-        return (refresh ? this.refreshData() : Promise.resolve()).then(() => this.rebuildMessage()).then(() => guild?.fetchMessages({limit: 1})
+        return (refresh ? this.refreshData() : Promise.resolve())
+            .then(() => this.rebuildMessage())
+            .then(() => guild?.fetchMessages({limit: 1})
             .then((messages: any) => {
                 if (messages.size === 0 && post)
                     return this.postMessage();
@@ -136,7 +120,8 @@ export default abstract class GUI {
     }
 
     postMessage(): Promise<Message | Message[] | void> {
-        return DiscordAPI.sendMessageOnChannel(this.channelId, this.message).catch(() => console.log("Error while posting message"));
+        return DiscordAPI.flushChannel(this.channelId).then(() =>
+            DiscordAPI.sendMessageOnChannel(this.channelId, this.message).catch(() => console.log("Error while posting message")));
     }
 
     /**

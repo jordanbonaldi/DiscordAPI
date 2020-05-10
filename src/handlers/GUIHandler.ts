@@ -1,13 +1,15 @@
 import GUI from "../gui/GUI";
+import {Message, MessageReaction, User} from "discord.js";
 
 export default new class GUIHandler {
 
-    private readonly gui: {[name: string] : GUI[]};
+    private readonly gui: {[name: string] : GUI[]} = {};
+    private readonly dmGUI: {[userID: string]: GUI} = {};
 
-    constructor() {
-        this.gui = {};
-    }
-
+    /**
+     *
+     * @param gui
+     */
     removeGui(gui: GUI) {
         gui.active = false;
 
@@ -26,9 +28,9 @@ export default new class GUIHandler {
 
     loadAll(): Promise<void[]> {
         return Promise.all(Object.keys(this.gui).map((gui: string) =>
-            this.gui[gui].filter((e: GUI) => e.reload)).map(gui => {
+            this.gui[gui].filter((e: GUI) => e.reload)).map((gui: GUI[]) => {
                 gui.forEach(e => e.active = true);
-                return gui.forEach(e => e.construct());
+                return gui.filter((e: GUI) => !e.personalMessage).forEach((e: GUI) => e.construct());
         }));
     }
 
@@ -55,8 +57,9 @@ export default new class GUIHandler {
      *
      * @param reaction
      * @param channelId
+     * @param userID
      */
-    openGUIWithReaction(reaction: string, channelId: string): Promise<any> | null {
+    getGUIWithReaction(reaction: string, channelId: string, userID ?: string): GUI | null {
         let activeGui = this.getActiveGUI(channelId);
 
         if (activeGui == null)
@@ -69,18 +72,78 @@ export default new class GUIHandler {
             return null;
 
         this.gui[channelId].forEach(e => e.active = false);
+        if (gui.personalMessage && userID !== undefined)
+            this.dmGUI[userID] = gui;
+
         gui.active = true;
 
-        return this.openGUI( gui);
+        return gui;
+    }
+
+    /**
+     *
+     * @param userID
+     */
+    getGUIOfUser(userID: string): GUI {
+        return this.dmGUI[userID];
+    }
+
+    /**
+     *
+     * @param userID
+     * @param gui
+     */
+    setUserGUI(userID: string, gui: GUI) {
+        this.dmGUI[userID] = gui;
+    }
+
+    /**
+     *
+     * @param reaction
+     * @param channelId
+     */
+    openGUIWithReaction(reaction: string, channelId: string): Promise<any> | null {
+        let gui: GUI | null = this.getGUIWithReaction(reaction, channelId);
+        if (gui === null) return null;
+
+        return this.openGUI(gui);
     }
 
     /**
      *
      * @param gui
      */
-    openGUI(gui: GUI): Promise<any> {
+    openGUI(gui: GUI): Promise<MessageReaction[]> {
         gui.active = true;
         return gui.construct();
+    }
+
+    /**
+     *
+     * @param newGui
+     * @param oldGui
+     */
+    changeGUI(newGui: GUI, oldGui: GUI): Promise<MessageReaction[]> {
+        newGui.active = true;
+        this.connectGUI(newGui);
+        oldGui.active = false;
+
+        return this.openGUI(newGui);
+    };
+
+    /**
+     *
+     * @param newGui
+     * @param oldGui
+     * @param user
+     */
+    changeGUIDms(newGui: GUI, oldGui: GUI, user: User): Promise<Message> {
+        this.removeGui(oldGui);
+
+        this.setUserGUI(user.id, newGui);
+        newGui.rebuildMessage();
+
+        return user.send(newGui.message).then((msg: Message | Message[]) => newGui.dmID = msg as Message);
     }
 
 }

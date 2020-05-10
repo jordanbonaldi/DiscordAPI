@@ -11,7 +11,7 @@ export default function getEngines<T>(endPath: string, from: string): Array<T> {
     let engines: T[] = [];
 
     files.forEach((file: string) => {
-        if (!file.includes('.js'))
+        if (!file.includes('.ts'))
             engines = engines.concat(getEngines(from + file, from));
         else if (file.includes(endPath) && file !== endPath)
             engines.push(

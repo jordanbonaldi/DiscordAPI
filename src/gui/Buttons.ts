@@ -1,22 +1,17 @@
-import GUI from "./GUI";
-import {Message, MessageReaction, RichEmbed} from "discord.js";
-import DiscordAPI from "../DiscordAPI";
-import GUIHandler from "../handlers/GUIHandler";
+import {Message, MessageReaction} from "discord.js";
 
 export class Button {
 
-    readonly icon: string;
-    readonly guiLink: string;
 
     /**
      *
      * @param icon
      * @param guiLink
      */
-    constructor(icon: string, guiLink: string) {
-        this.icon = icon;
-        this.guiLink = guiLink;
-    }
+    constructor(
+        public readonly icon: string,
+        public readonly guiLink: string
+    ) {}
 
     /**
      *
@@ -29,6 +24,6 @@ export class Button {
 
 }
 
-export default function(icon: string, guiLink: string) {
+export default function(icon: string, guiLink: string): Button {
     return new Button(icon, guiLink);
 }

@@ -4,7 +4,7 @@ import Button from "./gui/Buttons";
 import GUIHandler from "./handlers/GUIHandler";
 import Field, {FieldClass} from "./gui/Field";
 import Event from "./events/Event";
-import { Client, User, Message, MessageReaction } from "discord.js";
+import { Client, User, Message, MessageReaction, DMChannel, GuildMember } from "discord.js";
 
 export default DiscordAPI
 export {
@@ -18,5 +18,7 @@ export {
     Client as Client,
     User as User,
     Message as Message,
+    DMChannel as DMChannel,
+    GuildMember as GuildMember,
     MessageReaction as MessageReaction
 }

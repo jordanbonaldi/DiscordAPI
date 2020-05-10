@@ -1,16 +1,15 @@
 import {
-    Channel,
-    Client, Collection,
+    Client,
+    Collection,
     Guild,
     GuildChannel,
     GuildMember,
     Message,
     MessageReaction,
-    RichEmbed,
+    RichEmbed, Role,
     TextChannel
 } from 'discord.js';
 import EventHandler from "./handlers/EventHandler";
-import {Button} from "./gui/Buttons";
 
 class DiscordAPI {
 
@@ -55,6 +54,30 @@ class DiscordAPI {
         let guild: Guild | undefined = this.getGuild();
 
         return guild == null ? null : guild.members.find(e => e.id === userId);
+    }
+
+    /**
+     *
+     * @param userId
+     * @param roleId
+     */
+    memberSetRole(userId: string, roleId: string): Promise<GuildMember | undefined> {
+        let member: GuildMember | null = this.getMember(userId);
+        let role: Role | undefined = this.getGuild()?.roles.find((role: Role) => role.id === roleId);
+
+        return role == undefined || member == undefined ? Promise.resolve(undefined) : member.addRole(role);
+    }
+
+    /**
+     *
+     * @param userId
+     * @param roleId
+     */
+    memberRemoveRole(userId: string, roleId: string): Promise<GuildMember | undefined> {
+        let member: GuildMember | null = this.getMember(userId);
+        let role: Role | undefined = this.getGuild()?.roles.find((role: Role) => role.id === roleId);
+
+        return role == undefined || member == undefined ? Promise.resolve(undefined) : member.removeRole(role);
     }
 
     /**
