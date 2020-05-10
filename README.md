@@ -3,13 +3,13 @@
 
 DiscordAPI System allowing GUI Creation
 
-**Simple GUI**
+**Simple GUI Video (click on the image below)**
 
-[![Simple GUI Demo](https://img.youtube.com/vi/3-WWoTjsgwY/0.jpg)](https://youtu.be/3-WWoTjsgwY)
+[![Simple GUI Demo](https://i.imgur.com/tciFrnh.png)](https://youtu.be/3-WWoTjsgwY)
 
-**GUI with async calls between GUIs**
+**GUI with async calls between GUIs Video (click on the image below)**
 
-[![Using Async Call](https://img.youtube.com/vi/fnshn4kfrh8/0.jpg)](https://youtu.be/fnshn4kfrh8)
+[![Using Async Call](https://i.imgur.com/d6NHcpI.png)](https://youtu.be/fnshn4kfrh8)
 
 **Simple message refreshed every seconds**
 
