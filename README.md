@@ -17,7 +17,7 @@ DiscordAPI System allowing GUI Creation
 
 ## Installation
 
-`npm install @jordanbonaldi/DiscordAPI`
+`npm install @neferett/DiscordAPI`
 
 ```typescript
  setCredentials(serverId: string, loginToken: string): DiscordAPI;
