@@ -8,15 +8,13 @@
  <a href="https://github.com/jordanbonaldi/DiscordAPI/blob/master/LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License"></a>
 </p>
 
+**GUI Demonstration using custom events, and async calls between GUIs (click on images below)**
 
-**Simple GUI Video (click on the image below)**
-
-[![Simple GUI Demo](https://i.imgur.com/tciFrnh.png)](https://youtu.be/3-WWoTjsgwY)
-
-**GUI with async calls between GUIs Video (click on the image below)**
-
-[![Using Async Call](https://i.imgur.com/d6NHcpI.png)](https://youtu.be/fnshn4kfrh8)
-
+<p align="center">
+	<a href="https://youtu.be/3-WWoTjsgwY" style="margin-left: 2em"><img src="https://i.imgur.com/tciFrnh.png" height="180" width="400"></a>
+	<a href="https://youtu.be/fnshn4kfrh8"><img src="https://i.imgur.com/d6NHcpI.png" height="180" width="400"></a>
+<p>
+	
 **Simple message refreshed every seconds**
 
 <img src="https://i.imgur.com/wfSsbGF.png" height="600" width="430">
