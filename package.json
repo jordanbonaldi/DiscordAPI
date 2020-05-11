@@ -1,6 +1,6 @@
 {
   "name": "@neferett/discordapi",
-  "version": "1.2.11",
+  "version": "1.3.6",
   "scripts": {
     "watch": "nodemon",
     "build": "rimraf ./lib && tsc",

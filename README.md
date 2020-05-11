@@ -76,6 +76,18 @@
 	     // Super call will remove the message by default
 		  return super.onMessage(user, message); 
 	  };
+
+      /**
+       *
+       * @param user
+       * @param reaction
+       * @param nextGUI
+       */
+      onReaction(user: User, reaction: MessageReaction, nextGUI: GUI): Promise<boolean> {
+        //Should display nextGUI
+        return super.onReaction(user, reaction, nextGUI);
+      }
+
 }
 ```
 

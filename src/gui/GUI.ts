@@ -3,6 +3,7 @@ import DiscordAPI from "../DiscordAPI";
 import {Button} from "./Buttons";
 import {FieldClass} from "./Field";
 import {GUIHandler} from "../index";
+import ReactionsEvent from "../events/ReactionsEvent";
 
 export default abstract class GUI {
 
@@ -131,6 +132,18 @@ export default abstract class GUI {
      */
     onMessage(user: User, message: Message): Promise<Message> {
         return message.delete();
+    }
+
+    /**
+     *
+     * Should open next gui
+     *
+     * @param user
+     * @param reaction
+     * @param nextGUI
+     */
+    onReaction(user: User, reaction: MessageReaction, nextGUI: GUI): Promise<boolean> {
+        return Promise.resolve(true);
     }
 
     /**

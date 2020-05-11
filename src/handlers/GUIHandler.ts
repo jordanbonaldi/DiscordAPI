@@ -71,11 +71,13 @@ export default new class GUIHandler {
         if (gui == null)
             return null;
 
-        this.gui[channelId].forEach(e => e.active = false);
         if (gui.personalMessage && userID !== undefined)
             this.dmGUI[userID] = gui;
+        else {
+            this.gui[channelId].forEach(e => e.active = false);
+            gui.active = true;
+        }
 
-        gui.active = true;
 
         return gui;
     }
