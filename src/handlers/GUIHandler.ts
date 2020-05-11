@@ -146,4 +146,15 @@ export default new class GUIHandler {
         return user.send(newGui.message).then((msg: Message | Message[]) => newGui.dmID = msg as Message);
     }
 
+    /**
+     *
+     * @param gui
+     * @param user
+     */
+    guiSend(gui: GUI, user: User): Promise<Message> {
+        this.setUserGUI(user.id, gui);
+        gui.rebuildMessage();
+        return user.send(gui.message).then((msg: Message | Message[]) => gui.dmID = msg as Message);
+    };
+
 }
