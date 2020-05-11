@@ -1,7 +1,13 @@
 
 # DiscordAPI with GUI System
 
-DiscordAPI System allowing GUI Creation
+
+<p align="center">
+ <img src="https://img.shields.io/npm/dm/@neferett/discordapi.svg" alt="Downloads"></a>
+ <a href="https://www.npmjs.com/package/@neferett/discordapi"><img src="https://img.shields.io/npm/v/@neferett/discordapi.svg" alt="Version"></a>
+ <a href="https://github.com/jordanbonaldi/DiscordAPI/blob/master/LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License"></a>
+</p>
+
 
 **Simple GUI Video (click on the image below)**
 
