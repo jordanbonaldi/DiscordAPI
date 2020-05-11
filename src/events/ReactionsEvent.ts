@@ -24,7 +24,10 @@ export default new class ReactionsEvent extends Event {
 
         if (gui == undefined) return reaction.remove(user);
 
-        if (!gui?.personalMessage) return GUIHandler.openGUI(gui as GUI);
+        if (!gui?.personalMessage) return reaction.remove(user).then(() =>
+            oldGUI?.onReaction(user, reaction, gui as GUI)
+                .then((shouldSend: boolean) => shouldSend ? GUIHandler.openGUI(gui as GUI) : Promise.resolve(undefined))
+            );
 
         gui.rebuildMessage();
 

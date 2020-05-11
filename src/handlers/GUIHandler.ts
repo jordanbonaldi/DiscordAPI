@@ -65,6 +65,8 @@ export default new class GUIHandler {
         if (activeGui == null)
             return null;
 
+        if (activeGui.findReaction(reaction).guiLink === '') return activeGui;
+
         let gui = this.findGUIByClassName(channelId,
             activeGui.findReaction(reaction).guiLink);
 
@@ -77,7 +79,6 @@ export default new class GUIHandler {
             this.gui[channelId].forEach(e => e.active = false);
             gui.active = true;
         }
-
 
         return gui;
     }
