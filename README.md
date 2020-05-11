@@ -8,9 +8,8 @@
  <a href="https://github.com/jordanbonaldi/DiscordAPI/blob/master/LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License"></a>
 </p>
 
-**GUI Demonstration using custom events, and async calls between GUIs (click on images below)**
-
 <p align="center">
+	<b>GUI Demonstration using custom events, and async calls between GUIs (click on images below)</b>
 	<a href="https://youtu.be/3-WWoTjsgwY" style="margin-left: 2em"><img src="https://i.imgur.com/tciFrnh.png" height="180" width="400"></a>
 	<a href="https://youtu.be/fnshn4kfrh8"><img src="https://i.imgur.com/d6NHcpI.png" height="180" width="400"></a>
 <p>
