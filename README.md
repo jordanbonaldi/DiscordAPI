@@ -14,9 +14,6 @@
 	<a href="https://youtu.be/fnshn4kfrh8"><img src="https://i.imgur.com/d6NHcpI.png" height="180" width="400"></a>
 <p>
 	
-**Simple message refreshed every seconds**
-
-<img src="https://i.imgur.com/wfSsbGF.png" height="600" width="430">
 
 ## Installation
 
@@ -223,6 +220,10 @@ engines.events.push(ReactionsEvent);
  GUIHandler.removeGui(gui: GUI)
 
 ```
+
+## Simple Message refreshed every seconds
+
+<img src="https://i.imgur.com/wfSsbGF.png" height="600" width="430">
 
 ## License
 
