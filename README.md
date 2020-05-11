@@ -1,23 +1,23 @@
 
 # DiscordAPI with GUI System
 
-DiscordAPI System allowing GUI Creation
 
-**Simple GUI**
+<p align="center">
+ <img src="https://img.shields.io/npm/dm/@neferett/discordapi.svg" alt="Downloads"></a>
+ <a href="https://www.npmjs.com/package/@neferett/discordapi"><img src="https://img.shields.io/npm/v/@neferett/discordapi.svg" alt="Version"></a>
+ <a href="https://github.com/jordanbonaldi/DiscordAPI/blob/master/LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License"></a>
+</p>
 
-[![Simple GUI Demo](https://img.youtube.com/vi/3-WWoTjsgwY/0.jpg)](https://youtu.be/3-WWoTjsgwY)
-
-**GUI with async calls between GUIs**
-
-[![Using Async Call](https://img.youtube.com/vi/fnshn4kfrh8/0.jpg)](https://youtu.be/fnshn4kfrh8)
-
-**Simple message refreshed every seconds**
-
-<img src="https://i.imgur.com/wfSsbGF.png" height="600" width="430">
+<p align="center">
+	<b>GUI Demonstration using custom events, and async calls between GUIs (click on images below)</b>
+	<a href="https://youtu.be/3-WWoTjsgwY" style="margin-left: 2em"><img src="https://i.imgur.com/tciFrnh.png" height="180" width="400"></a>
+	<a href="https://youtu.be/fnshn4kfrh8"><img src="https://i.imgur.com/d6NHcpI.png" height="180" width="400"></a>
+<p>
+	
 
 ## Installation
 
-`npm install @jordanbonaldi/DiscordAPI`
+`npm install @neferett/DiscordAPI`
 
 ```typescript
  setCredentials(serverId: string, loginToken: string): DiscordAPI;
@@ -220,6 +220,10 @@ engines.events.push(ReactionsEvent);
  GUIHandler.removeGui(gui: GUI)
 
 ```
+
+## Simple Message refreshed every seconds
+
+<img src="https://i.imgur.com/wfSsbGF.png" height="600" width="430">
 
 ## License
 
