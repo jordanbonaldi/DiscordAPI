@@ -26,14 +26,13 @@ export default new class ReactionsEvent extends Event {
 
         gui.rebuildMessage();
 
-        if (GUIHandler.getGUIOfUser(user.id).channelId === gui.channelId)
-            return reaction.remove(user);
-
-        return user.send(gui.message).then((message: Message | Message[]) => {
-            if (gui !== null)
-                gui.dmID = message as Message;
-            return reaction.remove(user);
-        });
+        return ((GUIHandler.getGUIOfUser(user.id).channelId === gui.channelId ? reaction.remove(user) : Promise.resolve()) as Promise<MessageReaction | void>).then(() =>
+            user.send(gui?.message).then((message: Message | Message[]) => {
+                if (gui !== null)
+                    gui.dmID = message as Message;
+                return reaction.remove(user);
+            }
+        ));
     }
 
 }
