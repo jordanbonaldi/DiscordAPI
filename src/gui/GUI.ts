@@ -75,7 +75,6 @@ export default abstract class GUI {
     }
 
     addButton(...buttons: Button[]): void {
-        this.buttons = [];
         buttons.forEach(b => this.buttons.push(b));
     }
 
