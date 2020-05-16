@@ -82,7 +82,7 @@ export default abstract class GUI {
 
     protected abstract defineField(): void;
 
-    protected abstract refreshData(): Promise<any>;
+    abstract refreshData(): Promise<any>;
 
     rebuildMessage(): void {
         this.buildCore();
