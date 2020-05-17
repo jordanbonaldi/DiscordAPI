@@ -1,4 +1,4 @@
-import {Message, MessageReaction, RichEmbed, TextChannel, User} from "discord.js";
+import {Collection, Message, MessageReaction, RichEmbed, TextChannel, User} from "discord.js";
 import DiscordAPI from "../DiscordAPI";
 import {Button} from "./Buttons";
 import {FieldClass} from "./Field";
@@ -92,10 +92,28 @@ export default abstract class GUI {
 
     /**
      *
+     * @param message
+     */
+    editMessage(message: Message): Promise<MessageReaction[]> {
+        return message.clearReactions().then(() =>
+            message.edit(this.message).then(
+                () => this.postButtons(message)
+            )
+        );
+    }
+
+    postButtons(message: Message): Promise<MessageReaction[]> {
+        return Promise.all(this.buttons.map((button: Button) =>
+            button.pushButton(this.channelId, message)
+        ));
+    }
+
+    /**
+     *
      * @param post
      * @param refresh
      */
-    construct(post: boolean = true, refresh: boolean = true): Promise<MessageReaction[]> {
+    construct(post: boolean = true, refresh: boolean = true): Promise<MessageReaction[] | undefined> {
         let guild: TextChannel | undefined = DiscordAPI.getChannelFromId(this.channelId);
 
         if (guild == null)
@@ -104,17 +122,14 @@ export default abstract class GUI {
         return (refresh ? this.refreshData() : Promise.resolve())
             .then(() => this.rebuildMessage())
             .then(() => guild?.fetchMessages({limit: 1})
-            .then((messages: any) => {
+            .then((messages: Collection<String, Message>) => {
                 if (messages.size === 0 && post)
-                    return this.postMessage();
+                    return this.postMessage().then((message) => this.postButtons(message as Message));
                 if (this.oneMessage)
-                    return messages.first().clearReactions().then(() =>
-                        messages.first().edit(this.message).then(
-                            () => Promise.all(this.buttons.map((button: Button) =>
-                                button.pushButton(this.channelId, messages.first())
-                            ))
-                        )
-                    );
+                    return this.editMessage(messages.first());
+                else
+                    return messages.last().author.bot ? this.editMessage(messages.last()) :
+                        DiscordAPI.sendMessageOnChannel(this.channelId, this.message).then((msg: Message | Message[]) => this.postButtons(msg as Message));
             })
         );
     }

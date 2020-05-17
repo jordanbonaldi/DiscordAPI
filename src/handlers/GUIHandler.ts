@@ -118,7 +118,8 @@ export default new class GUIHandler {
      */
     openGUI(gui: GUI): Promise<MessageReaction[]> {
         gui.active = true;
-        return gui.construct();
+
+        return gui.construct() as Promise<MessageReaction[]>;
     }
 
     /**
