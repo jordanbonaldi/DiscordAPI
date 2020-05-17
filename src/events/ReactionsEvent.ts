@@ -22,7 +22,7 @@ export default new class ReactionsEvent extends Event {
         let oldGUI: GUI | null = GUIHandler.getActiveGUI(reaction.message.channel.id);
         let gui: GUI | null = GUIHandler.getGUIWithReaction(reaction.emoji.name, reaction.message.channel.id, user.id);
 
-        if (gui == undefined) return reaction.remove(user);
+        if (gui == undefined) return Promise.resolve(undefined);
 
         if (!gui?.personalMessage) return reaction.remove(user).then(() =>
             oldGUI?.onReaction(user, reaction, gui as GUI)
